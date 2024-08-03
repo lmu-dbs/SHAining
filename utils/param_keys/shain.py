@@ -1,0 +1,7 @@
+METRICS_PATH = 'metrics_path'
+FEATURES_PATH='features_path'
+EVALUATION_METRICS='evaluation_metrics'
+EVENTLOG_FEATURES='eventlog_features'
+METHODS = 'methods'
+MODEL = 'model'
+AGGREGATION = 'aggregation'

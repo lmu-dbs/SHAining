@@ -1,0 +1,9 @@
+[
+  {
+    "pipeline_step": "benchmark_test",
+    "benchmark_test": "discovery",
+    "input_path":"data/bpics_heu",
+    "output_path":"output",
+    "miners" : ["heuristics"]
+  }
+]
