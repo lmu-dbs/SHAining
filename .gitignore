@@ -1,0 +1,9 @@
+# data/
+# output/
+.ipynb_checkpoints/
+notebooks/.ipynb_checkpoints/*
+*.egg-info/
+build/
+*.pyc
+exp.ipynb
+# notebooks/*.csv

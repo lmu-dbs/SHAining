@@ -1,9 +1,0 @@
-[
-  {
-    "pipeline_step": "benchmark_test",
-    "benchmark_test": "discovery",
-    "input_path":"data/GenGrid7_ilp",
-    "output_path":"output",
-    "miners" : ["ilp"]
-  }
-]

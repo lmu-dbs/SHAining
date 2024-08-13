@@ -1,9 +1,0 @@
-[
-  {
-    "pipeline_step": "benchmark_test",
-    "benchmark_test": "discovery",
-    "input_path":"../shainy_gedi/output/shaining/genGrid1to3",
-    "output_path":"output",
-    "miners" : ["heuristics"]
-  }
-]

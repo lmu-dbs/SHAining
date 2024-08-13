@@ -7,7 +7,6 @@ import random
 import numpy as np
 
 from datetime import datetime as dt
-from datetime import timedelta
 from functools import partial, partialmethod
 from pathlib import Path
 from pm4py import read_xes, convert_to_bpmn, read_bpmn, convert_to_petri_net, check_soundness
@@ -92,9 +91,8 @@ class BenchmarkTest:
         if dump_path.endswith(".xes"):
             event_log = os.path.split(dump_path)[-1]
             dump_path = os.path.split(dump_path)[0]
-        
-        if len(miners) == 1:
-            dump_path = dump_path + f"_{miners[0]}"
+            if len(miners) == 1:
+                dump_path = dump_path + f"_{miners[0]}"
         benchmark_results = pd.DataFrame()
         # TODO: Use iteratevely generated name for log name in dataframe for passed unnamed logs instead of whole log. E.g. gen_el_1, gen_el_2,...
         if isinstance(event_log, str):
@@ -115,8 +113,7 @@ class BenchmarkTest:
             results[f"size_{miner}"]=benchmark_results[2]
             results[f"pnsize_{miner}"]=benchmark_results[4]
             results[f"cfc_{miner}"]=benchmark_results[3]
-            results[f"exectime_{miner}"]=benchmark_results[5]
-            results[f"benchtime_{miner}"]=benchmark_results[6]
+            results[f"time_{miner}"]=benchmark_results[5]
 
         print(f"    SUCCESS: {len(miners)} miners for {results['log']} took {dt.now()-start_miner} sec.")
         dump_features_json(results, dump_path, log_name, content_type="benchmark")
@@ -183,7 +180,6 @@ class BenchmarkTest:
         miner_params=''
         tqdm.__init__ = partialmethod(tqdm.__init__, disable=True)
         start_bench = dt.now()
-        start_bench = start_bench-timedelta(days=0)
 
         if type(log) is str:
             if params[INPUT_PATH].endswith('.xes'):
@@ -220,21 +216,13 @@ class BenchmarkTest:
                 miner_params = f', noise_threshold={NOISE_THRESHOLD}'
             net, im, fm = eval(f"discover_petri_net_{miner}(log {miner_params})")
             bpmn_graph = convert_to_bpmn(net, im, fm)
-        now = dt.now()
-        time_m = round((now-start_bench).total_seconds(),2)
-        try:
-            fitness = fitness_alignments(log, net, im, fm)['log_fitness']
-            precision = precision_alignments(log, net, im, fm)
-        except Exception: 
-            print(f"ERROR: Alignment for {log_path}")
-            fitness = -1
-            precision = -1
+        time = round((dt.now()-start_bench).total_seconds(),2)
+        fitness = fitness_alignments(log, net, im, fm)['log_fitness']
+        precision = precision_alignments(log, net, im, fm)
         pn_size = len(net._PetriNet__places)
         size = len(bpmn_graph._BPMN__nodes)
         cfc = sum([isinstance(node, BPMN.ExclusiveGateway) for node in bpmn_graph._BPMN__nodes])
         #generalization = generalization_evaluator.apply(log, net, im, fm)
         #simplicity = simplicity_evaluator.apply(net)
-        now = dt.now()
-        metric_time = round((now-start_bench).total_seconds(),2)
-        print(success_msg + f"{now-start_bench} sec. Miner time {time_m} sec. Complete computation time including metrics {metric_time} sec.")
-        return fitness, precision, size, cfc, pn_size, time_m, metric_time  #, generalization, simplicity
+        print(success_msg + f"{dt.now()-start_bench} sec.")
+        return fitness, precision, size, cfc, pn_size, time  #, generalization, simplicity

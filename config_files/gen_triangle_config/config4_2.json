@@ -1,0 +1,75 @@
+[
+    {
+        "pipeline_step": "event_logs_generation",
+        "output_path": "data/gen_triangle/config4_2",
+        "generator_params": {
+            "experiment": [
+                {
+                    "mean_variant_occurrence": 686.77,
+                    "ratio_variants_per_number_of_traces": 0.47
+                },
+                {
+                    "mean_variant_occurrence": 686.77,
+                    "ratio_variants_per_number_of_traces": 0.95
+                },
+                {
+                    "mean_variant_occurrence": 686.77,
+                    "ratio_variants_per_number_of_traces": 0.0
+                },
+                {
+                    "mean_variant_occurrence": 686.77,
+                    "trace_len_coefficient_variation": 0.84
+                },
+                {
+                    "mean_variant_occurrence": 686.77,
+                    "trace_len_coefficient_variation": 1.01
+                },
+                {
+                    "mean_variant_occurrence": 686.77,
+                    "trace_len_coefficient_variation": 0.0
+                }
+            ],
+            "config_space": {
+                "mode": [
+                    5,
+                    20
+                ],
+                "sequence": [
+                    0.01,
+                    1
+                ],
+                "choice": [
+                    0.01,
+                    1
+                ],
+                "parallel": [
+                    0.01,
+                    1
+                ],
+                "loop": [
+                    0.01,
+                    1
+                ],
+                "silent": [
+                    0.01,
+                    1
+                ],
+                "lt_dependency": [
+                    0.01,
+                    1
+                ],
+                "num_traces": [
+                    10,
+                    100
+                ],
+                "duplicate": [
+                    0
+                ],
+                "or": [
+                    0
+                ]
+            },
+            "n_trials": 50
+        }
+    }
+]
